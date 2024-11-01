@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 
 # crear modelo
 class TipoUsuario(models.Model):
-    IdTipeUser= models.IntegerField(primary_key=True,max_length=20)
+    IdTipeUser= models.IntegerField(primary_key=True)
     NamofType= models.CharField(max_length=10)
    
 class InfoPago(models.Model):
-    IdInfoPago=models.CharField(primary_key=True,max_length=10)
+    IdInfoPago=models.CharField(primary_key=True, max_length=10)
     FechaPago=models.DateTimeField(default=0)
-    IdTransaccion=models.CharField(blank=True)
+    IdTransaccion=models.CharField(blank=True, max_length=10)
 
 class  UserPremium(models.Model):
     IdUserPremium=models.CharField(primary_key=True,max_length=10)
@@ -19,7 +19,7 @@ class  UserPremium(models.Model):
     FechaFin=models.DateField(default=0)
     UserPremium=models.BooleanField(default=False)
     #Fk
-    IdPago=models.ForeignKey(InfoPagoPago, null=True,blank=False, on_delete=models.RESTRICT)
+    IdPago=models.ForeignKey(InfoPago, null=True,blank=False, on_delete=models.RESTRICT)
 
 class UserInfo(models.Model):
     IdInfoUser=models.CharField(primary_key=True,max_length=10)
@@ -48,21 +48,21 @@ class Publicaciones (models.Model):
     UsuarioCreador=models.ForeignKey(User,null=True, blank=False,on_delete=models.RESTRICT)
     EstadoPublicacion=models.ForeignKey(EstadoPost, null=True, blank=False, on_delete=models.RESTRICT)
 
-class PublicacionesVisistas (moodels.Model):
+class PublicacionesVisistas (models.Model):
     IdPublicacionesVisita=models.CharField(primary_key=True,max_length=10)
     FechaVisita=models.DateField(default=0)
     #FK
-    UserVisita=models.ForeignKey(User,null=True, blank=False, on_delete=models.RESTRICT)
-    PublicacionVisita=models.ForeignKey(User,null=True, blank=False, on_delete=models.RESTRICT)
+    UserVisita=models.ForeignKey(User,null=True, blank=False, on_delete=models.RESTRICT,  related_name='visitas_user')
+    PublicacionVisita=models.ForeignKey(User,null=True, blank=False, on_delete=models.RESTRICT, related_name='visitas_publicacion')
 
 class Chats(models.Model):
     IdChats=models.CharField(primary_key=True, max_length=10)
-    ChatsField=models.FileField(upload_to='media/Chats')
+    ChatsField=models.FileField(upload_to='media/Chats',null=True)
     FechaEnvio=models.DateTimeField(default=0)
     FechaVisto=models.DateTimeField(default=0)
     Visto=models.BooleanField(default=False)
     #FK
-    UsuarioEmisor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT)
-    UsuarioRecetor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT)
+    UsuarioEmisor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT, related_name='Emisor')
+    UsuarioRecetor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT, related_name='Receptor')
     Publicaciones=models.ForeignKey(Publicaciones, null=True,blank=False, on_delete=models.RESTRICT)
     
