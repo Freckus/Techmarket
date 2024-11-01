@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'Techmarkets.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'git',
+        'NAME': 'Marketplace',
         'USER':'root',
         'PASSWORD':'admin',
         'PORT': '3306',
