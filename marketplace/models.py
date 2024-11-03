@@ -38,7 +38,7 @@ class EstadoPost(models.Model):
     NombreEstado=models.CharField(max_length=10)
 
 class Publicaciones (models.Model):
-    IdPubliacion:models.CharField(primary_key=True,max_length=10)
+    IdPublicacion:models.CharField(primary_key=True,max_length=10)
     #Guardar el post como un xml o json y generearlo con el template?
     PathPost=models.FileField(upload_to='media/Post', blank=True)
     FechaCreacion=models.DateTimeField(default=0)
