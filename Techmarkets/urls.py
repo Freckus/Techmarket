@@ -27,6 +27,8 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.MainPage)
+    path('', views.MainPage, name='main_page'),
+    path('lista_publicaciones/', views.lista_publicaciones, name='lista_publicaciones'),
+    path('crear/', views.crear_publicacion, name='crear_publicacion'),
 ]
 

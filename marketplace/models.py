@@ -38,7 +38,7 @@ class EstadoPost(models.Model):
     NombreEstado=models.CharField(max_length=10)
 
 class Publicaciones (models.Model):
-    IdPubliacion:models.CharField(primary_key=True,max_length=10)
+    IdPublicacion:models.CharField(primary_key=True,max_length=10)
     #Guardar el post como un xml o json y generearlo con el template?
     PathPost=models.FileField(upload_to='media/Post', blank=True)
     FechaCreacion=models.DateTimeField(default=0)
@@ -47,6 +47,9 @@ class Publicaciones (models.Model):
     #FK
     UsuarioCreador=models.ForeignKey(User,null=True, blank=False,on_delete=models.RESTRICT)
     EstadoPublicacion=models.ForeignKey(EstadoPost, null=True, blank=False, on_delete=models.RESTRICT)
+    
+    def __str__(self):
+        return self.IdPublicacion
 
 class PublicacionesVisistas (models.Model):
     IdPublicacionesVisita=models.CharField(primary_key=True,max_length=10)
