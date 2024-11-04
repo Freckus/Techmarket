@@ -40,16 +40,18 @@ class EstadoPost(models.Model):
 class Publicaciones (models.Model):
     IdPublicacion:models.CharField(primary_key=True,max_length=10)
     #Guardar el post como un xml o json y generearlo con el template?
-    PathPost=models.FileField(upload_to='media/Post', blank=True)
-    FechaCreacion=models.DateTimeField(default=0)
+    Titulo = models.CharField(max_length=500, default=0)
+    Descripcion= models.CharField(max_length=5000, default=0)
+    ImagePost=models.ImageField(upload_to='images', default='media/resources/favicon.png')
+    FechaCreacion=models.DateTimeField(auto_now_add=True)
     Modificado=models.BooleanField(default=False)
-    FechaModificacion=models.DateTimeField(default=0)
-    #FK
+    FechaModificacion=models.DateTimeField(auto_now_add=True)
+    #FK   
     UsuarioCreador=models.ForeignKey(User,null=True, blank=False,on_delete=models.RESTRICT)
     EstadoPublicacion=models.ForeignKey(EstadoPost, null=True, blank=False, on_delete=models.RESTRICT)
     
     def __str__(self):
-        return self.IdPublicacion
+        return self.Titulo
 
 class PublicacionesVisistas (models.Model):
     IdPublicacionesVisita=models.CharField(primary_key=True,max_length=10)

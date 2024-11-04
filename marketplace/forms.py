@@ -1,8 +1,8 @@
 from django import forms
 #Carga el Modelo de contrib.auth
 from django.contrib.auth.models import User
-
-
+from .models import Publicaciones
+from django.core.exceptions import ValidationError
 ####Ivan  
 ##############################################################################################################################
 ############################################################################################################################## 
@@ -66,5 +66,8 @@ class RegisterUserForm(forms.ModelForm):
         return user
 ##############################################################################################################################
 ############################################################################################################################## 
-
->>>>>>> ad9252ab854df83427c78252d88ad79713fd0fb3
+#########BrunoPublicaciones###################################################################################################
+class PublicacionForm(forms.ModelForm):
+    class Meta:
+        model = Publicaciones
+        fields = ['Titulo', 'Descripcion', 'ImagePost']

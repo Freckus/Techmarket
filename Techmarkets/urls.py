@@ -14,7 +14,8 @@ urlpatterns = [
     path('', views.MainPage),
     path('register/', RegisterUser),
     path('login/',views.Login),
-    path('main/',views.main )
-]
-
+    path('main/',views.main ),
+    path('publicaciones/', views.ListaPublicacionesView.as_view(), name='lista_publicaciones'),
+    path('publicaciones/nueva/', views.CrearPublicacionView.as_view(), name='crear_publicacion')
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #comentario prueba

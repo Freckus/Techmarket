@@ -14,9 +14,13 @@ from django.contrib import messages
 from django.contrib.sessions.models import Session
 #para usar el decorador @login Requiered
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 #Carga de los forms
 from .forms import RegisterUserForm
-
+from .forms import PublicacionForm
+from .models import Publicaciones
+from django.utils import timezone
+from django.views import View
 def MainPage(request):
     messages.success(request, 'Template Funcionando')
     return render(request, 'templatesApp/Main.html')
@@ -50,7 +54,7 @@ def Login(request):
         messages.success(request, 'Bienvenidos {}'.format(user.username))
         request.session['user'] = username1
         request.session['clave'] = password1
-        return redirect('/main/')
+        return redirect('/publicaciones/nueva/')
     else:
         if username1 is None and password1 is None:
             pass
@@ -59,7 +63,29 @@ def Login(request):
             return redirect('/login/')
     return render(request, 'templatesApp/Login.html')
 ####################################################################################################
-
 def main(request):
     messages.success(request, 'Login completado')
     return render(request, 'templatesApp/Main.html')
+
+####################################################################################################
+##############################Publicaciones
+@method_decorator(login_required, name='dispatch')
+class CrearPublicacionView(View):
+    def get(self, request):
+        form = PublicacionForm()
+        return render(request, 'templatesApp/Crear.html', {'form': form})
+    
+    def post(self, request):
+        form = PublicacionForm(request.POST, request.FILES)
+        if form.is_valid():
+            publicacion = form.save(commit=False)
+            publicacion.UsuarioCreador = request.user
+            publicacion.save()
+            messages.success(request, 'Publicación Creada Exitosamente')
+            return redirect('lista_publicaciones')
+        return render(request, 'templatesApp/Crear.html', {'form': form})
+    
+class ListaPublicacionesView(View):
+    def get(self, request):
+        publicaciones = Publicaciones.objects.all()
+        return render(request, 'templatesApp/Lista.html', {'publicaciones': publicaciones})

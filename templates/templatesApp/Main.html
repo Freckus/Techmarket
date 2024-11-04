@@ -1,69 +1,111 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
+    <title>TechMarkets</title>
+    <meta name="description" content="TechMarkets - Conectando empresas con freelancers expertos en tecnología" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"/>
-     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
-    <title>TechMarkets</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
+    <style>
+      .hero-section {
+        background-color: #6f42c1;
+        color: #fff;
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .form-section {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-section {
+        padding: 40px 0;
+      }
+
+      .footer {
+        background-color: #6f42c1;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+      }
+    </style>
   </head>
 
-  <body class="container mt-5">
-    <div class="alert alert-info display-4 text-center">TechMarkets</div>
-    <div style="background-color: rgb(174, 122, 223)">
-      <form
-        method="POST"
-        style="display: flex; flex-direction: column; align-items: center">
-        {% csrf_token %}
-        <link rel="icon" type="image/png" href="{% static 'media/favicon.png' %}">
-        <div>
-          {% if messages %}
-          <div class="mt-3">
-             {% for message in messages %}
-            <div class="alert alert-success" role="alert">{{ message }}</div>
-              {% endfor %}
-          {% endif %}
-          {{ form.as_p }}
-          </div>
-
-          <div>
-            <a href="/ingresar/" class="btn btn-secondary mt-3">
-              volver
-            </a>
-            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
-            <br>
-          </div>
-        </div>
-        <br>
-      </form>
-      
+  <body>
+    <!-- Sección de encabezado / hero -->
+    <div class="hero-section">
+      <h1 class="display-4">Bienvenido a TechMarkets</h1>
+      <p class="lead">Conectamos empresas con freelancers expertos en tecnología.</p>
     </div>
-    <br>
-    <h1>hola1
-      <img src="{% static 'images/favicon.png' %}" alt="Logo de HTML5 1">
-    </h1>
-    <h2>hola 2
-      <img src="{% static 'media/favicon.png' %}" alt="Logo de HTML5 2" >
-    </h2>
-    
+
+    <!-- Sección de formulario -->
+    <div class="container my-5">
+      <div class="form-section">
+        <h2 class="text-center mb-4">Formulario de Registro</h2>
+        <form method="POST" class="text-center">
+          {% csrf_token %}
+          {% if messages %}
+            <div class="alert alert-success">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {{ form.as_p }}
+
+          <div class="d-flex justify-content-center mt-3">
+            <a href="/ingresar/" class="btn btn-secondary me-2">Volver</a>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sección 'Quiénes Somos' -->
+    <div class="container about-section text-center">
+      <h2>Quiénes Somos</h2>
+      <p class="lead">
+        En TechMarkets, ayudamos a empresas y freelancers a colaborar en proyectos innovadores. Nuestro objetivo es conectar
+        talento con oportunidades y transformar ideas en realidad.
+      </p>
+      <img src="{% static 'images/techmarkets-team.jpg' %}" alt="Equipo de TechMarkets" class="img-fluid rounded shadow mt-3" style="max-width: 80%;">
+    </div>
+
+    <!-- Sección de pie de página -->
+    <footer class="footer">
+      <p class="mb-0">© 2024 TechMarkets. Todos los derechos reservados.</p>
+      <p>
+        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white mx-3"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <img >
+      crossorigin="anonymous">
+    </script>
   </body>
 </html>
+
+
