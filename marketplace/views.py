@@ -1,37 +1,38 @@
-#Para login
 from django.contrib.auth import authenticate, login, logout
-#para login del modelo de django
 from django.contrib.auth.models import User
-#Renderizar 
 from django.shortcuts import get_object_or_404, render, redirect,HttpResponse
-#Mostrar mensajes 
 from django.contrib import messages
-#renderizar
-from django.shortcuts import render
-#MENSAJES
-from django.contrib import messages
-#sesiones del usuario
-from django.contrib.sessions.models import Session
-#para usar el decorador @login Requiered
 from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
 from django.utils.decorators import method_decorator
-#Carga de los forms
 from .forms import RegisterUserForm
 from .forms import PublicacionForm
 from .models import Publicaciones
-from django.utils import timezone
+
+from .models import UserInfo
+from django.contrib.sessions.models import Session 
+
 from django.views import View
+from django.utils import timezone
+import uuid
+
+
 def MainPage(request):
-    messages.success(request, 'Template Funcionando')
+    #messages.success(request, 'Template Funcionando')
     return render(request, 'templatesApp/Main.html')
 
 ####################################################################################################
 ###Registro de usuario#####
+
+def RegistroTipoUsuario(request):
+
+    return render(request, 'templatesApp/RegisterUserType.html')
+
 def RegisterUser(request):
     form=RegisterUserForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
     #ACA AGREGAR EL METODO PARA EL usuario userinfo no tomees essto en cuenta bruno user = form.save()
-        user = form.save()
+        user = form.SaveModelUser()
         if user:
             login(request, user)
             messages.success(request, "Registro exitoso. ¡Bienvenido!")
@@ -40,7 +41,11 @@ def RegisterUser(request):
     print("Funciona!")
     return render(request, 'templatesApp/Register.html', {'form': form})
 ####################################################################################################
-
+@login_required  
+def ProfileUser(request):
+    profile = UserInfo.objects.get(IdUser=request.user)
+    data={'UserInfo':[UserInfo]}
+    return render(request, 'templatesApp/Perfil.html',data) 
 ####################################################################################################
 ###Iniciar Sesion de usuario#####
 def Login(request):
@@ -62,6 +67,13 @@ def Login(request):
             messages.error(request, 'Usuario o Contraseña incorrectos')
             return redirect('/login/')
     return render(request, 'templatesApp/Login.html')
+
+@login_required
+def CerrarSesion(request):
+    print("Sesion Cerrada")
+    logout(request)
+    messages.success(request,'Sesión finalizada correctamente')
+    return redirect('/main/')
 ####################################################################################################
 def main(request):
     messages.success(request, 'Login completado')

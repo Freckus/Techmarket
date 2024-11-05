@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang='en'>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>SmartParking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+
+<body class="container mt-5">
+  <div class="alert alert-info display-4 text-center">Perfil De Usaurio</div>
+
+  <BR />
+{% if user %}          
+  <div class="container text-center text-bg-info p-3">
+    <div class="row">
+      <div class="col-6">
+            <h5>Datos Usaurio</h5>
+        <table class="table table-bordered table-primary">
+          <tbody>
+            <tr>
+            <tr>
+              <td style="text-align: start;">user name</td>
+              <td style="text-align: end;">{{user.username}}</td>
+            </tr>
+            <td style="text-align: start;">Nombre:</td>
+            <td style="text-align: end;">{{user.first_name}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;"></tdstyle>Apellido:</td>
+              <td style="text-align: end;">{{user.last_name}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;">Email:</td>
+              <td style="text-align: end;">{{user.email}}</td>
+            </tr>
+            {% endif %}
+            {% if UserInfo %}
+            <tr>
+              <td style="text-align: start;">Telefono</td>
+              {% for UserInfo in UserInfo %} 
+              <td style="text-align: end;">{{ UserInfo.Telefono }}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;">Fecha Nacimiento:</td>
+              
+            </tr>
+              {% endfor %}
+            <tr>
+              <td style="text-align: start;">Premium:</td>
+              <td style="text-align: end;">
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <div class="col-6">
+          <h5>Foto Usuario</h5>
+          {% if UserInfo.ProfileImage %}
+              <img src="{{ UserInfo.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;" alt="Foto de Usuario">
+          {% else %}
+              <img src="{% static 'media/Userprofile/profile_base.jpg' %}" style="max-width: 300px; max-height: 200px;" alt="Imagen de Perfil Base">
+          {% endif %}
+      </div>
+      </div>
+    </div>
+  </div>
+  <br>
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
