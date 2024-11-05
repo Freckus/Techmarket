@@ -30,8 +30,8 @@ class UserInfo(models.Model):
     #FK DEL MODelo de usuario django
     IdUser=models.ForeignKey(User,null=True,blank=False, on_delete=models.RESTRICT)##User
     #Fk Modelo propio
-    TypeUser=models.ForeignKey(TipoUsuario, null=True,blank=False, on_delete=models.RESTRICT)
-    EstadoPremium=models.ForeignKey(UserPremium, null=True, blank=False, on_delete=models.RESTRICT)
+    TypeUser=models.ForeignKey(TipoUsuario, null=True,blank=True, on_delete=models.RESTRICT)
+    EstadoPremium = models.ForeignKey(UserPremium, null=True, blank=True, on_delete=models.RESTRICT)
 
 class EstadoPost(models.Model):
     IdEstado=models.CharField(primary_key=True, max_length=10)
