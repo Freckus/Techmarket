@@ -26,7 +26,7 @@ class UserInfo(models.Model):
     DateBirth = models.DateField(null=True, blank=True)#default 0 por errores
     ConfirmedUser=models.BooleanField(default=False)
     Telefono = models.CharField(max_length=12, default=0)
-    ProfileImage=models.ImageField(upload_to="media/UserProfile", blank=True, default='media/Userprofile/profile_base.jpg')
+    ProfileImage=models.ImageField(upload_to="media/UserProfile", blank=True, default='profile_base.jpg')
     #FK DEL MODelo de usuario django
     IdUser=models.ForeignKey(User,null=True,blank=False, on_delete=models.RESTRICT)##User
     #Fk Modelo propio

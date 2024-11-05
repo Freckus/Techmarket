@@ -8,6 +8,10 @@ from django.utils.decorators import method_decorator
 from .forms import RegisterUserForm
 from .forms import PublicacionForm
 from .models import Publicaciones
+
+from .models import UserInfo
+from django.contrib.sessions.models import Session 
+
 from django.views import View
 from django.utils import timezone
 import uuid
@@ -19,6 +23,11 @@ def MainPage(request):
 
 ####################################################################################################
 ###Registro de usuario#####
+
+def RegistroTipoUsuario(request):
+
+    return render(request, 'templatesApp/RegisterUserType.html')
+
 def RegisterUser(request):
     form=RegisterUserForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
@@ -32,7 +41,11 @@ def RegisterUser(request):
     print("Funciona!")
     return render(request, 'templatesApp/Register.html', {'form': form})
 ####################################################################################################
-
+@login_required  
+def ProfileUser(request):
+    profile = UserInfo.objects.get(IdUser=request.user)
+    data={'UserInfo':[UserInfo]}
+    return render(request, 'templatesApp/Perfil.html',data) 
 ####################################################################################################
 ###Iniciar Sesion de usuario#####
 def Login(request):
