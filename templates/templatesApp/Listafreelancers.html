@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Publicaciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <!-- Bloque de mensajes -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h1 class="text-center mb-5">Publicaciones TechMarket</h1>
+        
+        <div class="row">
+            {% for user in Usuarios %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h2 class="card-title h5" style="font-style: italic;">{{ user.first_name }}</h2>
+                            <h2 class="card-title h5" style="font-style: italic;">{{ user.last_name }}</h2>
+                            {% with userinfo=user.id %}
+                                {% for info in info %}
+                                        {% if info.IdUser.id == userinfo %}
+                                            <p class="card-text">{{ info.Telefono }}</p>
+                                        {% endif %}
+                                        {% if info.ProfileImage == userinfo %}
+                                            <img src="{{ info.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;">
+                                        {% else %}
+                                            <p>Foto de Usuario</p> <!-- Si no hay imagen, mostrar este texto -->
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                            <p class="card-text">{{ user.last_name }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+

@@ -6,9 +6,8 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 import uuid
 
-####Ivan  
-##############################################################################################################################
-############################################################################################################################## 
+
+
 class RegisterUserForm(forms.ModelForm):
     class Meta:
         model=User
@@ -38,6 +37,8 @@ class RegisterUserForm(forms.ModelForm):
                                 widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Repetir Contraseña'}))
 
     DateBirth=forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),label='Fecha Nacimiento')
+
+    ProfileImage =forms.ImageField(label='Imagen de perfil a Subir',required=False)
 
     #Validar el nombre de usuario
     def clean_Username(self):
@@ -79,50 +80,49 @@ class RegisterUserForm(forms.ModelForm):
             raise forms.ValidationError("La fecha de nacimiento es obligatoria")
         return birth_date
     
-#############################################################################################################################
+    #Validar imagen perfil
+    def clean_ImagenCarnet(self):
+        Img=self.cleaned_data.get('ProfileImage')
+        return Img
 
+
+
+
+    #save para modelo usario
     def SaveModelUser(self):
         user= User.objects.create_user(
             self.cleaned_data.get('username'),
             self.cleaned_data.get('email'),
             self.cleaned_data.get('password'),
             first_name=self.cleaned_data.get('first_name'),
-            last_name=self.cleaned_data.get('last_name'),
-        )
-        #premium_status = UserPremium.objects.get(IdUserPremium=1)
+            last_name=self.cleaned_data.get('last_name'),)
+
         TipeUser = TipoUsuario.objects.get(IdTipeUser=1)
+        random_name = str(uuid.uuid4())[:8]
 
         datauser=UserInfo.objects.create(
             IdInfoUser=str(uuid.uuid4())[:6],
             Telefono=self.cleaned_data.get('Telefono'),
             DateBirth=self.cleaned_data.get('DateBirth'),
             TypeUser=TipeUser,
+            ProfileImage=self.cleaned_data.get('ProfileImage'),
             ConfirmedUser=True,
             IdUser=user
-            #EstadoPremium=premium_status,
+            
         )
         return user
-#############################################################################################################################
 
     def save(self, commit=True):
-        user = super().save(commit=False)  # No guarda el usuario aún
-        user.set_password(self.cleaned_data['password'])  # Establece la contraseña de forma segura
+        user = super().save(commit=False)  
+        user.set_password(self.cleaned_data['password'])  
         if commit:
-            user.save()  # Guarda el usuario en la base de datos
+            user.save()  
         return user
 
-
-##############################################################################################################################
-############################################################################################################################## 
-#########BrunoPublicaciones###################################################################################################
 class PublicacionForm(forms.ModelForm):
     class Meta:
         model = Publicaciones
         fields = ['Titulo', 'Descripcion', 'ImagePost']
-
-
-
-
 
 
 

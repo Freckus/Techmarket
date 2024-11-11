@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang='en'>
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,20 +42,22 @@
             {% endif %}
             {% if UserInfo %}
             <tr>
-              <td style="text-align: start;">Telefono</td>
               {% for UserInfo in UserInfo %} 
+              <td style="text-align: start;">Telefono</td>
               <td style="text-align: end;">{{ UserInfo.Telefono }}</td>
             </tr>
             <tr>
               <td style="text-align: start;">Fecha Nacimiento:</td>
-              
+              <td style="text-align: end;">{{ UserInfo.DateBirth }}</td>
             </tr>
-              {% endfor %}
             <tr>
               <td style="text-align: start;">Premium:</td>
-              <td style="text-align: end;">
+              {% if UserInfo.EstadoPremium is None %}
+              <td style="text-align: end;"> NORMAL </td>
+              {% else %}
+              <td style="text-align: end;"> Premium </td>
+              {% endif%}
             </tr>
-            {% endif %}
           </tbody>
         </table>
       </div>
@@ -64,17 +65,45 @@
         <div class="col-6">
           <h5>Foto Usuario</h5>
           {% if UserInfo.ProfileImage %}
-              <img src="{{ UserInfo.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;" alt="Foto de Usuario">
+          <img src="{{ UserInfo.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;" alt="Foto de Usuario">
           {% else %}
-              <img src="{% static 'media/Userprofile/profile_base.jpg' %}" style="max-width: 300px; max-height: 200px;" alt="Imagen de Perfil Base">
+          <img src="{% static 'media/Userprofile/profile_base.jpg' %}" style="max-width: 300px; max-height: 200px;" alt="Imagen de Perfil Base">
+          {% endif %}
+          {% endfor %}
           {% endif %}
       </div>
+      <hr>
+      <table class="table table-bordered table-primary">
+        <thead>
+          <tr>
+            <th colspan="2" class="text-center">Competencias</th>
+          </tr>
+          <tr>
+            <th>Areas</th>
+            <th>Tecnologias</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ejemplo , ejemplo 1</td>
+            <td>ejemplo 1, ejemplo 2</td>
+          </tr>
+          <tr>
+            <td>ejemplo 2, ejemplo 1</td>
+            <td>ejemplo 2, ejemplo 2</td>
+          </tr>
+          <tr>
+            <td>ejemplo 3, ejemplo 1</td>
+            <td>ejemplo 3, ejemplo 2</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <hr>
       </div>
     </div>
   </div>
   <br>
- 
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
