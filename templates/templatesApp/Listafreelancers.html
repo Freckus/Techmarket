@@ -19,33 +19,53 @@
             {% endfor %}
         {% endif %}
 
-        <h1 class="text-center mb-5">Publicaciones TechMarket</h1>
-        
+        <h1 class="text-center mb-5">Nuestros Desarrolladores en  TechMarket</h1>
         <div class="row">
             {% for user in Usuarios %}
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h2 class="card-title h5" style="font-style: italic;">{{ user.first_name }}</h2>
-                            <h2 class="card-title h5" style="font-style: italic;">{{ user.last_name }}</h2>
-                            {% with userinfo=user.id %}
-                                {% for info in info %}
+                        <div class="card-body d-flex align-items-center">
+                            <!-- Columna para el nombre de usuario a la izquierda -->
+                            <div class="col-6">
+                                <h2 class="card-title h5" style="font-weight: bold;">{{ user.username }}</h2>
+                                <h2 class="card-title h5" style="font-style: italic;">{{ user.first_name }}</h2>
+                                <h2 class="card-title h5" style="font-style: italic;">{{ user.last_name }}</h2>
+                                <hr>
+                                {% with userinfo=user.id %}
+                                    {% for info in info %}
                                         {% if info.IdUser.id == userinfo %}
                                             <p class="card-text">{{ info.Telefono }}</p>
+                                            <p class="card-text">{{ info.Clasificacion }}</p>
                                         {% endif %}
-                                        {% if info.ProfileImage == userinfo %}
-                                            <img src="{{ info.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;">
-                                        {% else %}
-                                            <p>Foto de Usuario</p> <!-- Si no hay imagen, mostrar este texto -->
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                            <!-- Columna para la foto de perfil a la derecha -->
+                            <div class="col-6 text-center">
+                                <div>
+                                    {% with userinfo=user.id %}
+                                    {% for info in info %}
+                                    {% if info.IdUser.id == userinfo %}
+                                    {% if info.ProfileImage %}
+                                    <img src="{{ info.ProfileImage.url }}" class="img-fluid rounded-circle" style="max-width: 100px;">
                                     {% endif %}
-                                {% endfor %}
-                            {% endwith %}
-                            <p class="card-text">{{ user.last_name }}</p>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <div>
+                                    <h2 style="font-size:larger;">
+                                        aptitudes
+                                    </h2>
+                                        
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
+        
         
         
 
