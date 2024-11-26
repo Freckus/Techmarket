@@ -1,122 +1,132 @@
 <!DOCTYPE html>
 {% load static %}
-
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>TechMarkets</title>
-    <meta name="description" content="TechMarkets - Conectando empresas con freelancers expertos en tecnología" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
-
-    <style>
-      .hero-section {
-        background-color: #6f42c1;
-        color: #fff;
-        padding: 60px 0;
-        text-align: center;
-      }
-
-      .form-section {
-        background-color: #f8f9fa;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .about-section {
-        padding: 40px 0;
-      }
-
-      .footer {
-        background-color: #6f42c1;
-        color: #fff;
-        padding: 20px 0;
-        text-align: center;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Sección de encabezado / hero -->
-    <div class="hero-section">
-      {% csrf_token %}
-      <div style="max-width: 100%;">
-
-    </div>
-      <h1 class="display-4">Bienvenido a TechMarkets</h1>
-      <p class="lead">Conectamos empresas con freelancers expertos en tecnología.</p>
-      <a href="/register/" class="btn btn-primary me-2">
-        <i class="bi bi-person-plus"></i> <!-- Icono de registro -->
-        Registro
-    </a>
-    <a href="/login/" class="btn btn-secondary">
-        <i class="bi bi-box-arrow-in-right"></i> <!-- Icono de login -->
-        Login
-    </a>
-    </div>
-
-    <!-- Sección de formulario -->
-    <div class="container my-5">
-      
-      <div class="container my-5">
-        <div class="form-section">
-            <h2 class="text-center mb-4">Sobre Nosotros</h2>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="text-center">Misión</h3>
-                    <p class="text-justify">Nuestra misión es ofrecer soluciones innovadoras y efectivas que mejoren la vida de nuestros clientes y contribuyan al desarrollo sostenible de la comunidad.</p>
-                </div>
-                <div class="col-md-6">
-                    <h3 class="text-center">Visión</h3>
-                    <p class="text-justify">Nuestra visión es ser líderes en el sector, reconocidos por nuestra excelencia en el servicio y compromiso con la calidad, generando un impacto positivo en la sociedad.</p>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TechMarkets - Conecta Empresas y Freelancers</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">TechMarkets</a>
+                <button
+                    class="navbar-toggler navbar-toggler-right"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">Quiénes Somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portafolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                    </ul>
                 </div>
             </div>
-            
+        </nav>
+
+        <!-- Masthead -->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-white font-weight-bold">Tu lugar para proyectos tecnológicos exitosos</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">
+                            Conectamos empresas con freelancers expertos en tecnología. ¡Descubre oportunidades hoy mismo!
+                        </p>
+                        <a href="/register/" class="btn btn-primary btn-xl me-2">Regístrate</a>
+                        <a href="/login/" class="btn btn-secondary btn-xl">Inicia Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Services -->
+        <section class="page-section" id="services">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">Nuestros Servicios</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Proyectos Innovadores</h3>
+                            <p class="text-muted mb-0">Conecta con talento especializado para crear soluciones únicas.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Tecnología Actualizada</h3>
+                            <p class="text-muted mb-0">Trabajamos con las herramientas más modernas del mercado.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Alcance Global</h3>
+                            <p class="text-muted mb-0">Conectamos empresas y freelancers en todo el mundo.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Pasión por la Tecnología</h3>
+                            <p class="text-muted mb-0">Cada proyecto se realiza con dedicación y compromiso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <div class="container my-5">
+            <div id="about" class="form-section">
+                <h2 class="text-center mb-4">Sobre Nosotros</h2>
+                <p class="text-center">TechMarkets conecta empresas con talento freelance de manera efectiva.</p>
+            </div>
         </div>
-    </div>
 
-    </div>
+        <!-- Footer -->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="small text-center text-muted">Copyright &copy; 2023 - TechMarkets</div>
+            </div>
+        </footer>
 
-    <!-- Sección 'Quiénes Somos' -->
-    <div class="container about-section text-center">
-      <h2>Quiénes Somos</h2>
-      <p class="lead">
-        En TechMarkets, ayudamos a empresas y freelancers a colaborar en proyectos innovadores. Nuestro objetivo es conectar
-        talento con oportunidades y transformar ideas en realidad.
-      </p>
-      <img src="{% static 'images/techmarkets-team.jpg' %}" alt="Equipo de TechMarkets" class="img-fluid rounded shadow mt-3" style="max-width: 80%;">
-    </div>
-
-    <!-- Sección de pie de página -->
-    <footer class="footer">
-      <p class="mb-0">© 2024 TechMarkets. Todos los derechos reservados.</p>
-      <p>
-        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="text-white mx-3"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
-      </p>
-    </footer>
-
-    <!-- Bootstrap JavaScript -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous">
-    </script>
-  </body>
+        <!-- Bootstrap core JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS -->
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
 </html>
+
+
+
 
 

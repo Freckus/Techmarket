@@ -8,6 +8,7 @@ from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, Registro
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.MainPage),
+    path('home', views.HomePage),
     path('register/', RegistroTipoUsuario),
     path('signup/',RegisterUser),
     path('login/',views.Login),
