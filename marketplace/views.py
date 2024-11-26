@@ -19,7 +19,11 @@ def MainPage(request):
     #messages.success(request, 'Template Funcionando')
     return render(request, 'templatesApp/Main.html')
 
-
+def HomePage(request):
+    #messages.succes(request, 'Template Funcionando')
+    return render(request, 'templatesApp/Home.html')
+####################################################################################################
+###Registro de usuario#####
 
 def RegistroTipoUsuario(request):
     return render(request, 'templatesApp/RegisterUserType.html')
@@ -53,7 +57,7 @@ def Login(request):
         messages.success(request, 'Bienvenidos {}'.format(user.username))
         request.session['user'] = username1
         request.session['clave'] = password1
-        return redirect('/publicaciones/nueva/')
+        return redirect('/home')
     else:
         if username1 is None and password1 is None:
             pass

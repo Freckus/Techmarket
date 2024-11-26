@@ -4,12 +4,14 @@ from django.urls import path
 from django.conf import settings
 from marketplace import views
 from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario
+from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.MainPage),
-    path('register/',views.RegistroTipoUsuario),
-    path('signup/',views.RegisterUser),
+    path('home', views.HomePage),
+    path('register/', RegistroTipoUsuario),
+    path('signup/',RegisterUser),
     path('login/',views.Login),
     path('main/',views.main ),
     path('profile/',views.ProfileUser),
