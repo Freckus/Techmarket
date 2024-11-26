@@ -26,7 +26,9 @@ class UserInfo(models.Model):
     DateBirth = models.DateField(null=True, blank=True)#default 0 por errores
     ConfirmedUser=models.BooleanField(default=False)
     Telefono = models.CharField(max_length=12, default=0)
-    ProfileImage=models.ImageField(upload_to="media/UserProfile", blank=True, default='profile_base.jpg')
+    ProfileImage=models.ImageField(upload_to="UserProfile", blank=True, default='UserProfile/profile_base.jpg')
+    DescripcionUser = models.TextField(max_length=20000, default="")
+    Clasificacion=models.DecimalField(max_digits=2,decimal_places=1, default=0)
     #FK DEL MODelo de usuario django
     IdUser=models.ForeignKey(User,null=True,blank=False, on_delete=models.RESTRICT)##User
     #Fk Modelo propio
@@ -41,7 +43,7 @@ class Publicaciones (models.Model):
     IdPublicacion:models.CharField(primary_key=True,max_length=10)
     #Guardar el post como un xml o json y generearlo con el template?
     Titulo = models.CharField(max_length=500, default=0)
-    Descripcion= models.CharField(max_length=5000, default=0)
+    Descripcion= models.TextField(max_length=5000, default=0)
     ImagePost=models.ImageField(upload_to='images', default='media/resources/favicon.png')
     FechaCreacion=models.DateTimeField(auto_now_add=True)
     Modificado=models.BooleanField(default=False)

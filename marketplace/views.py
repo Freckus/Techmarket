@@ -8,10 +8,8 @@ from django.utils.decorators import method_decorator
 from .forms import RegisterUserForm
 from .forms import PublicacionForm
 from .models import Publicaciones
-
 from .models import UserInfo
 from django.contrib.sessions.models import Session 
-
 from django.views import View
 from django.utils import timezone
 import uuid
@@ -28,26 +26,23 @@ def HomePage(request):
 ###Registro de usuario#####
 
 def RegistroTipoUsuario(request):
-
     return render(request, 'templatesApp/RegisterUserType.html')
 
 def RegisterUser(request):
-    form=RegisterUserForm(request.POST or None)
+    form=RegisterUserForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
-    #ACA AGREGAR EL METODO PARA EL usuario userinfo no tomees essto en cuenta bruno user = form.save()
         user = form.SaveModelUser()
         if user:
             login(request, user)
             messages.success(request, "Registro exitoso. ¡Bienvenido!")
             return redirect('/login/')
-#el {'form': form} le pasa el contexto del formulario
     print("Funciona!")
     return render(request, 'templatesApp/Register.html', {'form': form})
 ####################################################################################################
 @login_required  
 def ProfileUser(request):
     profile = UserInfo.objects.get(IdUser=request.user)
-    data={'UserInfo':[UserInfo]}
+    data={'UserInfo':[profile]}
     return render(request, 'templatesApp/Perfil.html',data) 
 ####################################################################################################
 ###Iniciar Sesion de usuario#####
@@ -99,8 +94,23 @@ class CrearPublicacionView(View):
             messages.success(request, 'Publicación Creada Exitosamente')
             return redirect('lista_publicaciones')
         return render(request, 'templatesApp/Crear.html', {'form': form})
-    
+
+
+#class RegistroUsuario(View):
+#    def get(self , request):
+#        form= RegisterUser()
+#        return render(request, 'templatesApp/Register.html')
+#    
+#    def post(self, request):
+#        form=RegisterUser(request.POST, request.files)
+        
+
 class ListaPublicacionesView(View):
     def get(self, request):
         publicaciones = Publicaciones.objects.all()
         return render(request, 'templatesApp/Lista.html', {'publicaciones': publicaciones})
+
+def ListarFreelancers(request):
+    Usuarios = User.objects.all()  
+    info= UserInfo.objects.all()  
+    return render(request, 'templatesApp/Listafreelancers.html', {'Usuarios': Usuarios ,'info':info })

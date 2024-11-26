@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from marketplace import views
-from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, RegistroTipoUsuario, ProfileUser
+from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/',views.ProfileUser),
     path('main/',views.CerrarSesion ),
     path('publicaciones/', views.ListaPublicacionesView.as_view(), name='lista_publicaciones'),
+    path('ListarFreelancers/', views.ListarFreelancers),
     path('publicaciones/nueva/', views.CrearPublicacionView.as_view(), name='crear_publicacion')
 ]
 if settings.DEBUG:
