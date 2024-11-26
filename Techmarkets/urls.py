@@ -4,7 +4,6 @@ from django.urls import path
 from django.conf import settings
 from marketplace import views
 from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario
-from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),

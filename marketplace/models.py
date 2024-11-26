@@ -38,6 +38,25 @@ class UserInfo(models.Model):
 class EstadoPost(models.Model):
     IdEstado=models.CharField(primary_key=True, max_length=10)
     NombreEstado=models.CharField(max_length=10)
+    Descripcion=models.CharField(max_length=50, default="")
+    
+ 
+class Areas (models.Model):
+    IdArea=models.AutoField(primary_key=True)
+    NombreArea=models.CharField(max_length=50, default= "")
+    Descripcion=models.CharField(max_length=50, default= "")
+    
+class Tecnologias(models.Model):
+    IdTecnologias=models.AutoField(primary_key=True)
+    NombreTecnologias=models.CharField(max_length=50, default= "")    
+    #Fk
+    AreaTecnologia=models.ForeignKey(Areas, null=True, blank=True, on_delete=models.RESTRICT)
+    
+
+class UsuarioTecnologias(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    tecnologias = models.ManyToManyField(Tecnologias, related_name="usuarios")
+    
 
 class Publicaciones (models.Model):
     IdPublicacion:models.CharField(primary_key=True,max_length=10)
@@ -54,6 +73,16 @@ class Publicaciones (models.Model):
     
     def __str__(self):
         return self.Titulo
+    
+
+class Postulante(models.Model):
+    publicacion = models.ForeignKey(Publicaciones, on_delete=models.CASCADE, related_name='postulantes')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='postulaciones')
+    FechaPostulacion = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        unique_together = ('publicacion', 'usuario')  
+
+
 
 class PublicacionesVisistas (models.Model):
     IdPublicacionesVisita=models.CharField(primary_key=True,max_length=10)

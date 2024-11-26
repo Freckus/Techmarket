@@ -42,8 +42,12 @@ def RegisterUser(request):
 @login_required  
 def ProfileUser(request):
     profile = UserInfo.objects.get(IdUser=request.user)
-    data={'UserInfo':[profile]}
-    return render(request, 'templatesApp/Perfil.html',data) 
+    publicaciones = Publicaciones.objects.filter(UsuarioCreador=request.user)
+    data = {
+        'UserInfo': [profile],
+        'Publicaciones': publicaciones  
+    }
+    return render(request, 'templatesApp/Perfil.html', data)
 ####################################################################################################
 ###Iniciar Sesion de usuario#####
 def Login(request):
