@@ -39,7 +39,8 @@ class RegisterUserForm(forms.ModelForm):
     DateBirth=forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),label='Fecha Nacimiento')
 
     ProfileImage =forms.ImageField(label='Imagen de perfil a Subir',required=False)
-
+    DescripcionUser = forms.CharField( widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), label="DescripcionUser",required=False)
+    
     #Validar el nombre de usuario
     def clean_Username(self):
         username=self.cleaned_data.get('username')
@@ -85,7 +86,9 @@ class RegisterUserForm(forms.ModelForm):
         Img=self.cleaned_data.get('ProfileImage')
         return Img
 
-
+    def clean_DescripcionUser(self):
+        DescripcionUser=self.cleaned_data.get('DescripcionUser')
+        return DescripcionUser
 
 
     #save para modelo usario
@@ -105,6 +108,7 @@ class RegisterUserForm(forms.ModelForm):
             Telefono=self.cleaned_data.get('Telefono'),
             DateBirth=self.cleaned_data.get('DateBirth'),
             TypeUser=TipeUser,
+            DescripcionUser=self.cleaned_data.get('DescripcionUser'),
             ProfileImage=self.cleaned_data.get('ProfileImage'),
             ConfirmedUser=True,
             IdUser=user
