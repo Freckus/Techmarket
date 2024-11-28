@@ -59,7 +59,7 @@ class UsuarioTecnologias(models.Model):
     
 
 class Publicaciones (models.Model):
-    IdPublicacion:models.CharField(primary_key=True,max_length=10)
+    IdPublicacion=models.AutoField(primary_key=True)
     #Guardar el post como un xml o json y generearlo con el template?
     Titulo = models.CharField(max_length=500, default=0)
     Descripcion= models.TextField(max_length=5000, default=0)

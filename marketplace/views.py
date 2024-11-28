@@ -28,6 +28,12 @@ def HomePage(request):
 def RegistroTipoUsuario(request):
     return render(request, 'templatesApp/RegisterUserType.html')
 
+def Postdetails(request, IdPublicacion):
+    Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+    data = {'Publicacion': Publicacion}
+    return render(request, 'templatesApp/PostDetails.html', data)
+
+
 def RegisterUser(request):
     form=RegisterUserForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
