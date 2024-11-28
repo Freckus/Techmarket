@@ -30,7 +30,9 @@ def RegistroTipoUsuario(request):
 
 def Postdetails(request, IdPublicacion):
     Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
-    data = {'Publicacion': Publicacion}
+    UserCreador=Publicacion.UsuarioCreador
+    User_Info = UserInfo.objects.get(IdUser=UserCreador)
+    data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
     return render(request, 'templatesApp/PostDetails.html', data)
 
 
@@ -124,3 +126,9 @@ def ListarFreelancers(request):
     Usuarios = User.objects.all()  
     info= UserInfo.objects.all()  
     return render(request, 'templatesApp/Listafreelancers.html', {'Usuarios': Usuarios ,'info':info })
+
+#def Postdetails(request, Titulo):
+#    Titulo= Titulo.replace('-',' ')
+#    Publicacion = get_object_or_404(Publicaciones, Titulo=titulo)
+#    data = {'Publicacion': Publicacion}
+#    return render(request, 'templatesApp/PostDetails.html', data)
