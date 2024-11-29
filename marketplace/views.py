@@ -7,6 +7,7 @@ from django.contrib.sessions.models import Session
 from django.utils.decorators import method_decorator
 from .forms import RegisterUserForm
 from .forms import PublicacionForm
+from .forms import PostulacionPostForm
 from .models import Publicaciones
 from .models import UserInfo
 from django.contrib.sessions.models import Session 
@@ -28,12 +29,12 @@ def HomePage(request):
 def RegistroTipoUsuario(request):
     return render(request, 'templatesApp/RegisterUserType.html')
 
-def Postdetails(request, IdPublicacion):
-    Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
-    UserCreador=Publicacion.UsuarioCreador
-    User_Info = UserInfo.objects.get(IdUser=UserCreador)
-    data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
-    return render(request, 'templatesApp/PostDetails.html', data)
+#def Postdetails(request, IdPublicacion):
+#    Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+#    UserCreador=Publicacion.UsuarioCreador
+#    User_Info = UserInfo.objects.get(IdUser=UserCreador)
+#    data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
+#    return render(request, 'templatesApp/PostDetails.html', data)
 
 
 def RegisterUser(request):
@@ -90,6 +91,20 @@ def main(request):
     return render(request, 'templatesApp/Main.html')
 
 ####################################################################################################
+#class PostulacionPost(View):
+#clase view
+def PostulacionPost(request):
+    form = PostulacionPostForm(request.POST, request.FILES)
+    if form.is_valid():
+        postulacion = form.save(commit=False)
+        postulacion.usuario = request.user
+        postulacion.publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+        postulacion.save()
+        messages.success(request, 'Postulacion exitosa')
+        return redirect('Profile')
+    return render(request, 'templatesApp/pruebapostulacion.html' , {'form': form})
+
+
 ##############################Publicaciones
 @method_decorator(login_required, name='dispatch')
 class CrearPublicacionView(View):
@@ -114,7 +129,7 @@ class CrearPublicacionView(View):
 #        return render(request, 'templatesApp/Register.html')
 #    
 #    def post(self, request):
-#        form=RegisterUser(request.POST, request.files)
+#        form=RegisterUser(request.POST, request.file   s)
         
 
 class ListaPublicacionesView(View):
@@ -127,8 +142,55 @@ def ListarFreelancers(request):
     info= UserInfo.objects.all()  
     return render(request, 'templatesApp/Listafreelancers.html', {'Usuarios': Usuarios ,'info':info })
 
+
+
+
+
+
+
+
+
+##podria ser final
+#class PostulacionPost2(View):
+#    def Post(request):
+#        form = PostulacionPostForm(request.POST, request.FILES)
+#        if form.is_valid():
+#            postulacion = form.save(commit=False)
+#            postulacion.usuario = request.user
+#            postulacion.publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+#            postulacion.save()
+#            messages.success(request, 'Postulacion exitosa')
+#            return redirect('Profile')
+#        return render(request, 'templatesApp/PostDetails.html', {'form': form})
+
+
+##Descartados 
 #def Postdetails(request, Titulo):
 #    Titulo= Titulo.replace('-',' ')
 #    Publicacion = get_object_or_404(Publicaciones, Titulo=titulo)
 #    data = {'Publicacion': Publicacion}
 #    return render(request, 'templatesApp/PostDetails.html', data)
+
+
+################
+
+class Postdetails(View):
+    #Postdetails
+    def get(self, request, IdPublicacion):
+        Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+        UserCreador=Publicacion.UsuarioCreador
+        User_Info = UserInfo.objects.get(IdUser=UserCreador)
+        data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
+        return render(request, 'templatesApp/PostDetails.html', data)
+
+    def post(self, request, IdPublicacion):
+        form = PostulacionPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            postulacion = form.save(commit=False)
+            postulacion.usuario = request.user
+            postulacion.publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
+            postulacion.save()
+            messages.success(request, 'Postulacion exitosa')
+            return redirect('Profile')
+        return render(request, 'templatesApp/PostDetails.html' , {'form': form})
+    

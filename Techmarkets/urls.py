@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from marketplace import views
-from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario,Postdetails
+from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario,Postdetails,PostulacionPost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,8 +19,12 @@ urlpatterns = [
     path('ListarFreelancers/', views.ListarFreelancers),
     path('publicaciones/nueva/', views.CrearPublicacionView.as_view(), name='crear_publicacion'),
     ##
-    path('post/Details/<str:IdPublicacion>/', views.Postdetails, name='post_details'),
-]
+    #path('post/Details/<str:IdPublicacion>/', views.Postdetails, name='post_details'),
+    #path('post/Details/<str:IdPublicacion>/', views.PostulacionPost2.as_view(), name='post_details'),
+    #path('post/Details2/<str:IdPublicacion>', views.PostulacionPost2, name='post_postulacion'),
+    path('post/Details/<str:IdPublicacion>/', views.Postdetails.as_view(), name='post_details'),
+    path('pustular/', views.PostulacionPost, name='post_postulacion')
+] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

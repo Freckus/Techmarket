@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Publicaciones, UserInfo, UserPremium, TipoUsuario
+from .models import Publicaciones, UserInfo, UserPremium, TipoUsuario, Postulante
 from django.core.exceptions import ValidationError
-#Librerias ivan
 from django.utils import timezone
 import uuid
 
@@ -130,16 +129,13 @@ class PublicacionForm(forms.ModelForm):
 
 
 
+class PostulacionPostForm(forms.ModelForm):
+    class Meta:
+        model = Postulante
+        fields = ['publicacion','usuario']
 
 
 
 
 
-    #no tomes en cuenta esto es para el modelo del userinfo, me falta agregar los otros metodos
-    #def GuardarUsuario(self):
-    #    user= User.objects.create_user(
-    #        self.cleaned_data.get('username'),
-    #        self.cleaned_data.get('email'),
-    #        self.cleaned_data.get('password'),
-    #        first_name=self.cleaned_data.get('first_name'),
-    #        last_name=self.cleaned_data.get('last_name'),)
+
