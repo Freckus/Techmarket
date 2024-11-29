@@ -175,22 +175,31 @@ def ListarFreelancers(request):
 ################
 
 class Postdetails(View):
-    #Postdetails
+    # Método GET
     def get(self, request, IdPublicacion):
+        # Obtener la publicación
         Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
-        UserCreador=Publicacion.UsuarioCreador
+        UserCreador = Publicacion.UsuarioCreador
         User_Info = UserInfo.objects.get(IdUser=UserCreador)
-        data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
+        
+        # Autocompletar el formulario
+        form = PostulacionPostForm(initial={
+            'publicacion': Publicacion,  # Rellenamos el campo publicacion con la publicación actual
+            'usuario': request.user       # Rellenamos el campo usuario con el usuario actual
+        })
+        
+        data = {'Publicacion': Publicacion, 'User': UserCreador, 'UserInfo': User_Info, 'form': form}
         return render(request, 'templatesApp/PostDetails.html', data)
 
+    # Método POST
     def post(self, request, IdPublicacion):
         form = PostulacionPostForm(request.POST, request.FILES)
         if form.is_valid():
             postulacion = form.save(commit=False)
-            postulacion.usuario = request.user
+            postulacion.usuario = request.user   # Asegurarse de que el usuario se asigna correctamente
             postulacion.publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
             postulacion.save()
-            messages.success(request, 'Postulacion exitosa')
-            return redirect('Profile')
-        return render(request, 'templatesApp/PostDetails.html' , {'form': form})
-    
+            messages.success(request, 'Postulación exitosa')
+            return redirect('/home')
+        return render(request, 'templatesApp/PostDetails.html', {'form': form})
+

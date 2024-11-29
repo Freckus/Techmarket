@@ -134,7 +134,8 @@ class PostulacionPostForm(forms.ModelForm):
         model = Postulante
         fields = ['publicacion','usuario']
 
-
+    publicacion = forms.ModelChoiceField(queryset=Publicaciones.objects.all(), widget=forms.HiddenInput(), required=False)
+    usuario = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput(), required=False)
 
 
 
