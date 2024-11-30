@@ -18,12 +18,10 @@ urlpatterns = [
     path('publicaciones/', views.ListaPublicacionesView.as_view(), name='lista_publicaciones'),
     path('ListarFreelancers/', views.ListarFreelancers),
     path('publicaciones/nueva/', views.CrearPublicacionView.as_view(), name='crear_publicacion'),
-    ##
-    #path('post/Details/<str:IdPublicacion>/', views.Postdetails, name='post_details'),
-    #path('post/Details/<str:IdPublicacion>/', views.PostulacionPost2.as_view(), name='post_details'),
-    #path('post/Details2/<str:IdPublicacion>', views.PostulacionPost2, name='post_postulacion'),
     path('post/Details/<str:IdPublicacion>/', views.Postdetails.as_view(), name='post_details'),
-    path('pustular/', views.PostulacionPost, name='post_postulacion')
+    path('public/profile/<str:IdUser>', views.PublicUser.as_view(), name='public_profile'),
+    
+    path('pustular/', views.PostulacionPost, name='post_postulacion'),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,6 +37,7 @@
                                         {% if info.IdUser.id == userinfo %}
                                             <p class="card-text">{{ info.Telefono }}</p>
                                             <p class="card-text">{{ info.Clasificacion }}</p>
+                                            <a href= "../public/profile/{{info.IdUser.id}}" class="btn btn-outline-primary btn-sm mt-3">Leer mas</a>
                                         {% endif %}
                                     {% endfor %}
                                 {% endwith %}

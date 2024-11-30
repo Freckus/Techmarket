@@ -122,15 +122,17 @@ class CrearPublicacionView(View):
             return redirect('lista_publicaciones')
         return render(request, 'templatesApp/Crear.html', {'form': form})
 
-
-#class RegistroUsuario(View):
-#    def get(self , request):
-#        form= RegisterUser()
-#        return render(request, 'templatesApp/Register.html')
-#    
-#    def post(self, request):
-#        form=RegisterUser(request.POST, request.file   s)
-        
+class PublicUser(View):
+    def get(self,request, IdUser):
+        profileDesc = UserInfo.objects.get(IdUser=IdUser)
+        profileUser = User.objects.get(id=IdUser) 
+        #publicaciones = Publicaciones.objects.filter(UsuarioCreador=request.user)
+        data = {
+            'profileDesc': profileDesc,
+            'profileUser':profileUser,
+            #'Publicaciones': publicaciones
+            }
+        return render(request, 'templatesApp/PerfilPublico.html', data)
 
 class ListaPublicacionesView(View):
     def get(self, request):
@@ -142,37 +144,6 @@ def ListarFreelancers(request):
     info= UserInfo.objects.all()  
     return render(request, 'templatesApp/Listafreelancers.html', {'Usuarios': Usuarios ,'info':info })
 
-
-
-
-
-
-
-
-
-##podria ser final
-#class PostulacionPost2(View):
-#    def Post(request):
-#        form = PostulacionPostForm(request.POST, request.FILES)
-#        if form.is_valid():
-#            postulacion = form.save(commit=False)
-#            postulacion.usuario = request.user
-#            postulacion.publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
-#            postulacion.save()
-#            messages.success(request, 'Postulacion exitosa')
-#            return redirect('Profile')
-#        return render(request, 'templatesApp/PostDetails.html', {'form': form})
-
-
-##Descartados 
-#def Postdetails(request, Titulo):
-#    Titulo= Titulo.replace('-',' ')
-#    Publicacion = get_object_or_404(Publicaciones, Titulo=titulo)
-#    data = {'Publicacion': Publicacion}
-#    return render(request, 'templatesApp/PostDetails.html', data)
-
-
-################
 
 class Postdetails(View):
     # Método GET
