@@ -10,6 +10,7 @@ from .forms import PublicacionForm
 from .forms import PostulacionPostForm
 from .models import Publicaciones
 from .models import UserInfo
+from .models import Postulante
 from django.contrib.sessions.models import Session 
 from django.views import View
 from django.utils import timezone
@@ -52,9 +53,11 @@ def RegisterUser(request):
 def ProfileUser(request):
     profile = UserInfo.objects.get(IdUser=request.user)
     publicaciones = Publicaciones.objects.filter(UsuarioCreador=request.user)
+    postulaciones=Postulante.objects.filter(usuario=request.user)
     data = {
         'UserInfo': [profile],
-        'Publicaciones': publicaciones  
+        'Publicaciones': publicaciones,
+        'Postulante': postulaciones 
     }
     return render(request, 'templatesApp/Perfil.html', data)
 ####################################################################################################

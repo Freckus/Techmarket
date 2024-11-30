@@ -147,16 +147,15 @@
     <div class="container text-center text-bg-info p-3">
       <div class="row">
         <div class="col-10">
-          <h2>mis Trabajos  </h2>
+          <h2>Mis Postulaciones  </h2>
     
-          {% if Publicaciones %}
+          {% if Postulante %}
             <ul class="list-group">
-              {% for publicacion in Publicaciones %}
+              {% for postulaciones in Postulante %}
                 <li class="list-group-item">
-                  <h5>{{ publicacion.Titulo }}</h5>
-                  <p>{{ publicacion.Descripcion }}</p>
-                  <p><strong>Fecha de creación:</strong> {{ publicacion.FechaCreacion }}</p>
-                  <!-- Puedes agregar más campos según lo necesites -->
+                  <h5>{{ postulaciones.publicacion}}</h5>
+                  <p>{{ postulaciones.FechaPostulacion }}</p>
+                   <!-- Puedes agregar más campos según lo necesites -->
                 </li>
               {% endfor %}
             </ul>
