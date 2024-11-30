@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>TechMarket-- perfil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+      </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Seguir formato de burno</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#">seguir</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">opciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">de </a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            
+                        </header>
+
+<hr>
+
+
+         {% if profileUser  %}
+<div class="container text-center text-bg-info p-3">
+    <div class="row">
+      <div class="col-6">
+            <h5>Datos Usaurio</h5>
+        <table class="table table-bordered table-primary">
+          <tbody>
+            <tr>
+            <tr>
+              <td style="text-align: start;">user name</td>
+              <td style="text-align: end;">{{profileUser.username}}</td>
+            </tr>
+            <td style="text-align: start;">Nombre:</td>
+            <td style="text-align: end;">{{profileUser.first_name}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;"></tdstyle>Apellido:</td>
+              <td style="text-align: end;">{{profileUser.last_name}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;">Email:</td>
+              <td style="text-align: end;">{{profileUser.email}}</td>
+            </tr>
+            {% endif %}
+            {% if profileDesc %}
+            <tr>
+                {% if profileUser.id == profileDesc.IdUser.id %}
+              <td style="text-align: start;">Telefono</td>
+              <td style="text-align: end;">{{ profileDesc.Telefono }}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;">Fecha Nacimiento:</td>
+              <td style="text-align: end;">{{ profileDesc.DateBirth }}</td>
+            </tr>
+            <tr>
+              <td style="text-align: start;">Premium:</td>
+              {% if UserInfo.EstadoPremium is None %}
+              <td style="text-align: end;"> NORMAL </td>
+              {% else %}
+              <td style="text-align: end;"> Premium </td>
+              {% endif%}
+            </tr>
+            <tr>
+              <td style="text-align: start;">description:</td>
+              <td style="text-align: end;">{{ profileDesc.DescripcionUser }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <div class="col-6">
+          <h5>Foto Usuario</h5>
+          {% if profileDesc.ProfileImage %}
+          <img src="{{ profileDesc.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;" alt="Foto de Usuario">
+          {% else %}
+          <img src="{% static 'media/Userprofile/profile_base.jpg' %}" style="max-width: 300px; max-height: 200px;" alt="Imagen de Perfil Base">
+          {% endif %}
+          {% endif %}
+          {% endif %}
+      </div>
+      <hr>
+      
+      <table class="table table-bordered table-primary">
+        <thead>
+          <tr>
+            <th colspan="2" class="text-center">Competencias</th>
+          </tr>
+          <tr>
+            <th>Areas</th>
+            <th>Tecnologias</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ejemplo , ejemplo 1</td>
+            <td>ejemplo 1, ejemplo 2</td>
+          </tr>
+          <tr>
+            <td>ejemplo 2, ejemplo 1</td>
+            <td>ejemplo 2, ejemplo 2</td>
+          </tr>
+          <tr>
+            <td>ejemplo 3, ejemplo 1</td>
+            <td>ejemplo 3, ejemplo 2</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+      </div>
+    
+    </div>
+    
+  </div>
+</div>
+
+<hr>
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scriptsPost.js' %}"></script>
+    </body>
+</html>
