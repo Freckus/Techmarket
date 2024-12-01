@@ -1,10 +1,42 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
+
 # C extensions
 *.so
+
+# Ignorar caché de Python
+Techmarkets/__pycache__/
+*.pyc
+
+# Ignorar archivos de configuración de VSCode
+.vscode/
+
+# Ignorar caché de Python
+__pycache__/
+*.pyc
+
+# Ignorar archivos de configuración de VSCode
+.vscode/
+
+# Ignorar imágenes y archivos en la carpeta media
+media/*
+!media/UserProfile/
+!media/images/
+media/UserProfile/*.jpg
+media/images/*.png
+
+templates/templatesApp/test.txt
+# Ignorar favicon.ico en todas partes
+favicon.ico
+static/favicon.ico
+
+
+# Ignorar carpetas específicas
+static/media/
 
 # Distribution / packaging
 .Python
@@ -36,6 +68,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+.gitignore
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -160,3 +193,10 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+#carpetas
+# Ignorar todas las carpetas de migraciones
+marketplace/migrations/
+
+# Ignorar todas las carpetas __pycache__ dentro de cualquier subdirectorio
+**/__pycache__/
