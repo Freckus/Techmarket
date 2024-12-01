@@ -140,7 +140,7 @@ class PostulacionPostForm(forms.ModelForm):
 
 ##conceptual se ve como dropdown
 
-class Acuerdo(forms.ModelForm):
+class Acuerdo2(forms.ModelForm):
     class Meta:
         model= AcuerdoPublicacion
         fields=['Postulante','EstadoAcuerdo','Comentarios']
@@ -152,8 +152,27 @@ class Acuerdo(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        super(Acuerdo, self).__init__(*args, **kwargs)
-        # Asignar el postulante actual al campo oculto si lo deseas
+        super(Acuerdo2, self).__init__(*args, **kwargs)
         if 'user' in kwargs:
             self.fields['publicacion'].initial = kwargs['user'].postulante
+    
+
+#class Acuerdo(forms.ModelForm):
+#    class Meta:
+#        model= AcuerdoPublicacion
+#        fields=['Comentarios']
+#        exclude=['EstadoAcuerdo','Postulante']
+#
+#    Comentarios = forms.CharField( widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), label="Comentarios",required=False)
+#
+#
+
+class Acuerdo(forms.ModelForm):
+    class Meta:
+        model = AcuerdoPublicacion
+        fields = ['Comentarios', 'Postulante']
+        exclude = ['EstadoAcuerdo']  # No es necesario excluir 'Postulante' si ya está en fields
+
+    Comentarios = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), label="Comentarios", required=False)
+    Postulante = forms.ModelChoiceField(queryset=Postulante.objects.all(), widget=forms.HiddenInput())
     

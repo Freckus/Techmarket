@@ -73,7 +73,7 @@
         <div class="container px-lg-5">
           <!-- Page Features-->
         </div>
-        {% if postulaciones %} 
+        {% if postulaciones %}
         {% for postulante in postulaciones %}
         <div class="card text-white bg-primary mb-3">
             <div class="row">
@@ -98,28 +98,30 @@
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
-                                    
-                                    <p class="card-text"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="container mt-3">
                                 <div class="col-2">
-                                  <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <button type="submit">Guardar</button>
-                                </form>
-                                
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
+                                        
+                                        <!-- Campo oculto con el id del postulante -->
+                                        <input type="hidden" name="Postulante" value="{{ postulante.id }}">
+                                        
+                                        <button type="submit">Guardar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {% endfor %} 
+        {% endfor %}
     {% endif %}
+    
     
       </section>
     </div>

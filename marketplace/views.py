@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from .forms import RegisterUserForm
 from .forms import PublicacionForm
 from .forms import PostulacionPostForm
-from .forms import Acuerdo
+from .forms import Acuerdo,Acuerdo2
 from .models import Publicaciones
 from .models import UserInfo
 from .models import Postulante
@@ -30,14 +30,6 @@ def HomePage(request):
 
 def RegistroTipoUsuario(request):
     return render(request, 'templatesApp/RegisterUserType.html')
-
-#def Postdetails(request, IdPublicacion):
-#    Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
-#    UserCreador=Publicacion.UsuarioCreador
-#    User_Info = UserInfo.objects.get(IdUser=UserCreador)
-#    data = {'Publicacion': Publicacion, 'User':UserCreador,'UserInfo':User_Info}
-#    return render(request, 'templatesApp/PostDetails.html', data)
-
 
 def RegisterUser(request):
     form=RegisterUserForm(request.POST, request.FILES)
@@ -176,60 +168,55 @@ class Postdetails(View):
             return redirect('/home')
         return render(request, 'templatesApp/PostDetails.html', {'form': form})
 
+#class ElegirPostulante(View):
+#    def get(self, request,IdPostulantes):
+#        postulaciones = Postulante.objects.filter(publicacion=IdPostulantes)
+#        publicacion = Publicaciones.objects.get(IdPublicacion=IdPostulantes) 
+#        usuarios_ids = postulaciones.values_list('usuario_id', flat=True)  
+#        userinfo = UserInfo.objects.filter(IdUser__in=usuarios_ids)
+#        data={ 'postulaciones':postulaciones,'publicacion':publicacion, 'userinfo':userinfo}
+#        return render(request, 'templatesApp/SeleccionarPostulante.html', data)
+#
+#    def post(self, request, IdPostulantes):
+#        form=Acuerdo(request.POST, request.FILES)
+#        if form.is_valid():
+#            
+#            form.save() 
+#            return redirect('home')
+#        return render(request, 'templatesApp/SeleccionarPostulante.html', {'form': form})
+#
+
 class ElegirPostulante(View):
-    def get(self, request,IdPostulantes):
+    def get(self, request, IdPostulantes):
         postulaciones = Postulante.objects.filter(publicacion=IdPostulantes)
-        publicacion = Publicaciones.objects.get(IdPublicacion=IdPostulantes) 
-        usuarios_ids = postulaciones.values_list('usuario_id', flat=True)  
+        publicacion = Publicaciones.objects.get(IdPublicacion=IdPostulantes)
+        usuarios_ids = postulaciones.values_list('usuario_id', flat=True)
         userinfo = UserInfo.objects.filter(IdUser__in=usuarios_ids)
-        data={ 'postulaciones':postulaciones,'publicacion':publicacion, 'userinfo':userinfo}
+
+        # Creamos un formulario con el postulante seleccionado
+        form = Acuerdo()
+        
+        # Añadimos el postulante al formulario, de modo que se envíe en el formulario
+        # Asumimos que el postulante se selecciona mediante el boton
+        data = {
+            'postulaciones': postulaciones,
+            'publicacion': publicacion,
+            'userinfo': userinfo,
+            'form': form,
+        }
         return render(request, 'templatesApp/SeleccionarPostulante.html', data)
 
     def post(self, request, IdPostulantes):
-        form=Acuerdo(request.POST, request.FILES)
+        form = Acuerdo(request.POST, request.FILES)
         if form.is_valid():
-            
-            form.save() 
-            return redirect('home')
+            # Aquí se selecciona el postulante al guardar el acuerdo
+            form.save()
+            return redirect('/home')
         return render(request, 'templatesApp/SeleccionarPostulante.html', {'form': form})
-##################################################################
-
-#
-# llamo al id Postulante(ppotulaciones)--> filtro por id de publicacion
-# dentro de este filtro (llamo el id_de_usuario)
-# llamo el id_userinfo ( usando mi filtro_de_usaurio) 
-#
-#
-#tabla postulaciones 
-##id_de_postulaciones 
-##Fk_id_publicaciones 
-##Fk_id_usuario
-#
-##################################################################
-
-
 
 def pruebaform(request):
-    form = Acuerdo(request.POST or None, request.FILES or None)
+    form = Acuerdo2(request.POST or None, request.FILES or None)
     if request.method == 'POST' and form.is_valid():  
         form.save()  
         return redirect('/home')
     return render(request, 'templatesApp/formprueba.html', {'form': form})
-
-
-#def RegisterUser(request):
-#    form=RegisterUserForm(request.POST, request.FILES)
-#    if request.method == 'POST' and form.is_valid():
-#        user = form.SaveModelUser()
-#        if user:
-#            login(request, user)
-#            messages.success(request, "Registro exitoso. ¡Bienvenido!")
-#            return redirect('/login/')
-#    print("Funciona!")
-#    return render(request, 'templatesApp/Register.html', {'form': form})
-
-
-
-   #def post(self, request):
-   #     messages.success(request, 'Postulación exitosa')
-   #     return render(request, 'templatesApp/SeleccionarPostulante.html')    
