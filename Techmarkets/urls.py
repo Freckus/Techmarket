@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from marketplace import views
-from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario,Postdetails,PostulacionPost
+from marketplace.views import RegisterUser,main,MainPage, CerrarSesion, ProfileUser,ListarFreelancers,RegistroTipoUsuario,Postdetails,PostulacionPost,pruebaform
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,6 +22,9 @@ urlpatterns = [
     path('public/profile/<str:IdUser>', views.PublicUser.as_view(), name='public_profile'),
     path('elegir-postulante/<str:IdPostulantes>', views.ElegirPostulante.as_view(), name='elegir_postulante'),
     
+    #
+    path('formprueba/', views.pruebaform, name='pruebaform'),
+    #
     path('pustular/', views.PostulacionPost, name='post_postulacion'),
 ] 
 if settings.DEBUG:
