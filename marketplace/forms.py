@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Publicaciones, UserInfo, UserPremium, TipoUsuario, Postulante
+from .models import Publicaciones, UserInfo, UserPremium, TipoUsuario, Postulante, AcuerdoPublicacion
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 import uuid
@@ -138,5 +138,22 @@ class PostulacionPostForm(forms.ModelForm):
     usuario = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput(), required=False)
 
 
+##conceptual se ve como dropdown
 
+class Acuerdo(forms.ModelForm):
+    class Meta:
+        model= AcuerdoPublicacion
+        fields=['Postulante','EstadoAcuerdo','Comentarios']
+    
+    publicacion = forms.ModelChoiceField(
+        queryset=Postulante.objects.all(), 
+        widget=forms.HiddenInput(), 
+        required=False
+    )
 
+    def __init__(self, *args, **kwargs):
+        super(Acuerdo, self).__init__(*args, **kwargs)
+        # Asignar el postulante actual al campo oculto si lo deseas
+        if 'user' in kwargs:
+            self.fields['publicacion'].initial = kwargs['user'].postulante
+    

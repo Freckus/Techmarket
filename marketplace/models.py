@@ -82,6 +82,8 @@ class Postulante(models.Model):
     FechaPostulacion = models.DateTimeField(auto_now_add=True)
     class Meta:
         unique_together = ('publicacion', 'usuario')  
+    def __str__(self):
+        return f'{self.usuario.username} - {self.publicacion.Titulo}'
 
 class AcuerdoPublicacion(models.Model):
     Postulante=models.ForeignKey(Postulante, on_delete=models.CASCADE, related_name='postulates')
