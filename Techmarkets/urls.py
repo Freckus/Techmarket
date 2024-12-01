@@ -20,6 +20,7 @@ urlpatterns = [
     path('publicaciones/nueva/', views.CrearPublicacionView.as_view(), name='crear_publicacion'),
     path('post/Details/<str:IdPublicacion>/', views.Postdetails.as_view(), name='post_details'),
     path('public/profile/<str:IdUser>', views.PublicUser.as_view(), name='public_profile'),
+    path('elegir-postulante/<str:IdPostulantes>', views.ElegirPostulante.as_view(), name='elegir_postulante'),
     
     path('pustular/', views.PostulacionPost, name='post_postulacion'),
 ] 

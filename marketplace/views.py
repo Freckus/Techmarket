@@ -155,11 +155,9 @@ class Postdetails(View):
         Publicacion = Publicaciones.objects.get(IdPublicacion=IdPublicacion)
         UserCreador = Publicacion.UsuarioCreador
         User_Info = UserInfo.objects.get(IdUser=UserCreador)
-        
-        # Autocompletar el formulario
         form = PostulacionPostForm(initial={
-            'publicacion': Publicacion,  # Rellenamos el campo publicacion con la publicación actual
-            'usuario': request.user       # Rellenamos el campo usuario con el usuario actual
+            'publicacion': Publicacion, 
+            'usuario': request.user       
         })
         
         data = {'Publicacion': Publicacion, 'User': UserCreador, 'UserInfo': User_Info, 'form': form}
@@ -177,3 +175,12 @@ class Postdetails(View):
             return redirect('/home')
         return render(request, 'templatesApp/PostDetails.html', {'form': form})
 
+class ElegirPostulante(View):
+    def get(self, request,IdPostulantes):
+        postulaciones = Postulante.objects.filter(publicacion=IdPostulantes)
+        data={ 'postulaciones':postulaciones}
+        return render(request, 'templatesApp/SeleccionarPostulante.html', data)
+
+   #def post(self, request):
+   #     messages.success(request, 'Postulación exitosa')
+   #     return render(request, 'templatesApp/SeleccionarPostulante.html')    

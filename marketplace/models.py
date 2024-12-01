@@ -67,6 +67,7 @@ class Publicaciones (models.Model):
     FechaCreacion=models.DateTimeField(auto_now_add=True)
     Modificado=models.BooleanField(default=False)
     FechaModificacion=models.DateTimeField(auto_now_add=True)
+    Percio=models.CharField(max_length=10, default="")
     #FK   
     UsuarioCreador=models.ForeignKey(User,null=True, blank=False,on_delete=models.RESTRICT)
     EstadoPublicacion=models.ForeignKey(EstadoPost, null=True, blank=False, on_delete=models.RESTRICT)
@@ -82,7 +83,13 @@ class Postulante(models.Model):
     class Meta:
         unique_together = ('publicacion', 'usuario')  
 
-
+class AcuerdoPublicacion(models.Model):
+    Postulante=models.ForeignKey(Postulante, on_delete=models.CASCADE, related_name='postulates')
+    Puntuacion=models.IntegerField(default=0)
+    Comentarios=models.CharField(max_length=500, default="")
+    EstadoAcuerdo=models.CharField(max_length=50, choices=[('pendiente', 'Pendiente'), ('aprobado', 'Aprobado'), ('rechazado', 'Rechazado')], default="Pendiente")
+    FechaFin=models.DateTimeField(auto_now_add=True)
+    
 
 class PublicacionesVisistas (models.Model):
     IdPublicacionesVisita=models.CharField(primary_key=True,max_length=10)
