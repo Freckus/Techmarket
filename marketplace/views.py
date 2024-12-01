@@ -179,7 +179,8 @@ class ElegirPostulante(View):
     def get(self, request,IdPostulantes):
         postulaciones = Postulante.objects.filter(publicacion=IdPostulantes)
         publicacion = Publicaciones.objects.filter(IdPublicacion=IdPostulantes).first()
-        userinfo= UserInfo.objects.filter(IdUser=IdPostulantes)
+        usuarios_ids = postulaciones.values_list('usuario_id', flat=True)  # Extrae los IDs de usuario
+        userinfo = UserInfo.objects.filter(IdUser__in=usuarios_ids)
         data={ 'postulaciones':postulaciones,'publicacion':publicacion, 'userinfo':userinfo}
         return render(request, 'templatesApp/SeleccionarPostulante.html', data)
 
