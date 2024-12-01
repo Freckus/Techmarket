@@ -58,6 +58,9 @@
           <div class="m-4 m-lg-5">
               {% if postulaciones %} 
               <h2>{{ postulaciones.0.publicacion }}</h2>
+              {% if publicacion %}
+              {{publicacion.Descripcion}}
+              {% endif %}
               {% endif %}
               <h3 class="display-3fw-bold">!Listado de Postulantes!</h3>
           </div>
@@ -83,8 +86,20 @@
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">{{ postulante.usuario }}</h5>
+                      {% if userinfo %}
+                      {% for userinfo in userinfo %}
+                      {{userinfo.Clasificacion}}
+                      
+                      {% if userinfo.ProfileImage %}
+                      <img src="{{ userinfo.ProfileImage.url }}" style="max-width: 300px; max-height: 200px;" alt="Foto de Usuario">
+                      {% else %}
+                      <img src="{% static 'media/Userprofile/profile_base.jpg' %}" style="max-width: 300px; max-height: 200px;" alt="Imagen de Perfil Base">
+                      {% endif %}
+
+
+                      {% endfor %}
+                      {% endif %}
                       <p class="card-text">
-                        
                       </p>
                     </div>
                   </div>

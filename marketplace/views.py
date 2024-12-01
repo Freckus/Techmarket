@@ -178,7 +178,9 @@ class Postdetails(View):
 class ElegirPostulante(View):
     def get(self, request,IdPostulantes):
         postulaciones = Postulante.objects.filter(publicacion=IdPostulantes)
-        data={ 'postulaciones':postulaciones}
+        publicacion = Publicaciones.objects.filter(IdPublicacion=IdPostulantes).first()
+        userinfo= UserInfo.objects.filter(IdUser=IdPostulantes)
+        data={ 'postulaciones':postulaciones,'publicacion':publicacion, 'userinfo':userinfo}
         return render(request, 'templatesApp/SeleccionarPostulante.html', data)
 
    #def post(self, request):
