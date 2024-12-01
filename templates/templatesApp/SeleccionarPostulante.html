@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Bienvenido TechMarkets</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      href="{% static 'images/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles(1).css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container px-lg-5">
+        <a class="navbar-brand" href="#!">Bienvenido a TechMarkets</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#!">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Header-->
+    <header class="py-5">
+      <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+          <div class="m-4 m-lg-5">
+              {% if postulaciones %} 
+              <h2>{{ postulaciones.0.publicacion }}</h2>
+              {% endif %}
+              <h3 class="display-3fw-bold">!Listado de Postulantes!</h3>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Page Content-->
+    <div class="container mt-5">
+      <section class="pt-4">
+        <div class="container px-lg-5">
+          <!-- Page Features-->
+        </div>
+        {% if postulaciones %} 
+        {% for postulante in postulaciones %}
+        <div class="card text-white bg-primary mb-3">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-8">
+                  <div class="container mt-3">
+                    <div class="card-header">
+                      Postulante Numero {{ forloop.counter }}
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ postulante.usuario }}</h5>
+                      <p class="card-text">
+                        
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="container mt-3">
+                    <div class="col-2">
+                      <form action="POST">
+                        <button type="submit">Seleccionar Postulante</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} 
+        {% endif %}
+      </section>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
