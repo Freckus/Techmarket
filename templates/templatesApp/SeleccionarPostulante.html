@@ -106,10 +106,12 @@
                         <div class="col-4">
                             <div class="container mt-3">
                                 <div class="col-2">
-                                    <form method="POST">
-                                        <button type="submit">Seleccionar Postulante</button>
-                                    </form>
-                                </div>
+                                  <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit">Guardar</button>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
