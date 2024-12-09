@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Modelo 
-    'marketplace'
-
+    'marketplace',
+    'channels'
 ]
 
 
@@ -133,16 +133,11 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-##Static
-#STATIC_URL = 'static/'
-##STATICFILES_DIRS = [BASE_DIR / "static"]
-#
-#STATICFILES_DIRS = [    
-#    os.path.join(BASE_DIR, 'static'),
-#]
-##Media
-#MEDIA_URL = 'media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+ASGI_APPLICATION = 'TechMarkets.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 

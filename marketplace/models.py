@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -63,13 +64,21 @@ class PublicacionesVisistas (models.Model):
     PublicacionVisita=models.ForeignKey(User,null=True, blank=False, on_delete=models.RESTRICT, related_name='visitas_publicacion')
 
 class Chats(models.Model):
-    IdChats=models.CharField(primary_key=True, max_length=10)
-    ChatsField=models.FileField(upload_to='media/Chats',null=True)
-    FechaEnvio=models.DateTimeField(default=0)
-    FechaVisto=models.DateTimeField(default=0)
-    Visto=models.BooleanField(default=False)
-    #FK
-    UsuarioEmisor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT, related_name='Emisor')
-    UsuarioRecetor=models.ForeignKey(User, null=True, blank=False, on_delete= models.RESTRICT, related_name='Receptor')
-    Publicaciones=models.ForeignKey(Publicaciones, null=True,blank=False, on_delete=models.RESTRICT)
-    
+    IdChats = models.CharField(primary_key=True, max_length=10)
+    Mensaje = models.TextField(null=True, blank=True)  # Mensaje de texto
+    ArchivoAdjunto = models.FileField(upload_to='media/Chats', null=True, blank=True)  # Soporte para archivos
+    FechaEnvio = models.DateTimeField(default=timezone.now)  # Fecha de envío del mensaje
+    FechaVisto = models.DateTimeField(null=True, blank=True)  # Fecha en la que se marcó como visto
+    Visto = models.BooleanField(default=False)  # Indicador de si el mensaje ha sido leído
+    # FK
+    UsuarioEmisor = models.ForeignKey(User, null=True, blank=False, on_delete=models.RESTRICT, related_name='Emisor')
+    UsuarioReceptor = models.ForeignKey(User, null=True, blank=False, on_delete=models.RESTRICT, related_name='Receptor')
+    Publicacion = models.ForeignKey('Publicaciones', null=True, blank=True, on_delete=models.RESTRICT)  # Relación opcional con Publicaciones
+
+class Conversaciones(models.Model):
+    IdConversacion = models.CharField(primary_key=True, max_length=10)
+    Participantes = models.ManyToManyField(User)  # Usuarios en la conversación
+    FechaCreacion = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Conversación {self.IdConversacion}"

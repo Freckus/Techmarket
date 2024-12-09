@@ -13,7 +13,8 @@ from django.contrib.sessions.models import Session
 from django.views import View
 from django.utils import timezone
 import uuid
-
+from django.http import JsonResponse
+from .models import Chats, Conversaciones
 
 def MainPage(request):
     #messages.success(request, 'Template Funcionando')
@@ -42,8 +43,12 @@ def RegisterUser(request):
 @login_required  
 def ProfileUser(request):
     profile = UserInfo.objects.get(IdUser=request.user)
-    data={'UserInfo':[profile]}
-    return render(request, 'templatesApp/Perfil.html',data) 
+    publicaciones = Publicaciones.objects.filter(UsuarioCreador=request.user)
+    data = {
+        'UserInfo': [profile],
+        'Publicaciones': publicaciones  
+    }
+    return render(request, 'templatesApp/Perfil.html', data)
 ####################################################################################################
 ###Iniciar Sesion de usuario#####
 def Login(request):
@@ -114,3 +119,23 @@ def ListarFreelancers(request):
     Usuarios = User.objects.all()  
     info= UserInfo.objects.all()  
     return render(request, 'templatesApp/Listafreelancers.html', {'Usuarios': Usuarios ,'info':info })
+
+def EnviarMensaje(request):
+    if request.method == 'POST':
+        data = request.POST
+        emisor = get_object_or_404(User, id=data.get('UsuarioEmisor'))
+        receptor = get_object_or_404(User, id=data.get('UsuarioReceptor'))
+        conversacion = get_object_or_404(Conversaciones, id=data.get('Conversacion'))
+        mensaje = data.get('Mensaje')
+
+        nuevo_mensaje = Chats.objects.create(
+            UsuarioEmisor=emisor,
+            UsuarioReceptor=receptor,
+            Conversacion=conversacion,
+            Mensaje=mensaje,
+            FechaEnvio=timezone.now()
+        )
+        return JsonResponse({'status': 'success', 'message': 'Mensaje enviado correctamente'})
+    
+def chat_view(request):
+    return render(request, 'templatesApp/Chat.html', {'room_name': 'default_room'})

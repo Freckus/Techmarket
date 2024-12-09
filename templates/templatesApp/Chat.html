@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat en TechMarket</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #chat-box { max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 10px; border-radius: 10px; height: 400px; overflow-y: auto; background: #f9f9f9; }
+        .message { margin: 10px 0; }
+        .message.emisor { text-align: right; }
+        .message.receptor { text-align: left; }
+        #message-input { max-width: 600px; margin: auto; display: flex; margin-top: 10px; }
+        #message-input textarea { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        #message-input button { padding: 10px; background: #007BFF; color: white; border: none; border-radius: 5px; margin-left: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="chat-box"></div>
+    <div id="message-input">
+        <textarea id="message" rows="2" placeholder="Escribe un mensaje"></textarea>
+        <button id="send">Enviar</button>
+    </div>
+    <script>
+        const roomName = "default_room";
+        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
+        const chatBox = document.getElementById('chat-box');
+        const sendButton = document.getElementById('send');
+        const messageInput = document.getElementById('message');
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            const messageElement = document.createElement('div');
+            messageElement.className = data.usuario === 'yo' ? 'message emisor' : 'message receptor';
+            messageElement.textContent = `${data.usuario}: ${data.mensaje}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        sendButton.onclick = function() {
+            const mensaje = messageInput.value.trim();
+            if (mensaje) {
+                chatSocket.send(JSON.stringify({ 'mensaje': mensaje }));
+                messageInput.value = '';
+            }
+        };
+    </script>
+</body>
+</html>
