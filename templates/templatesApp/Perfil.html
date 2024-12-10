@@ -164,6 +164,25 @@
           {% endif %}
     
         </div>
+        <div class="container text-center text-bg-info p-3">
+          <div class="row">
+            <div class="col-10">
+              <h2>Mis Contratos  </h2>
+        
+              {% if AcuerdoPublicacion %}
+                <ul class="list-group">
+                  {% for acuerdopublicaciones in AcuerdoPublicacion %}
+                    <li class="list-group-item">
+                      <h5>{{ acuerdopublicaciones.Postulante}}</h5>
+                       <!-- Puedes agregar más campos según lo necesites -->
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>No tienes publicaciones aún.</p>
+              {% endif %}
+        
+            </div>
       </div>
     </div>
     

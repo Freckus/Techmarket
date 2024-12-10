@@ -11,11 +11,12 @@ from .forms import PostulacionPostForm
 from .forms import Acuerdo,Acuerdo2
 from .models import Publicaciones
 from .models import UserInfo
-from .models import Postulante
+from .models import Postulante, AcuerdoPublicacion
 from django.contrib.sessions.models import Session 
 from django.views import View
 from django.utils import timezone
 import uuid
+from django.http import HttpResponseForbidden
 
 
 def MainPage(request):
@@ -47,10 +48,13 @@ def ProfileUser(request):
     profile = UserInfo.objects.get(IdUser=request.user)
     publicaciones = Publicaciones.objects.filter(UsuarioCreador=request.user)
     postulaciones=Postulante.objects.filter(usuario=request.user)
+    acuerdopublicaciones = AcuerdoPublicacion.objects.filter(Postulante__usuario=request.user).distinct()
+    
     data = {
         'UserInfo': [profile],
         'Publicaciones': publicaciones,
-        'Postulante': postulaciones 
+        'Postulante': postulaciones,
+        'AcuerdoPublicacion': acuerdopublicaciones
     }
     return render(request, 'templatesApp/Perfil.html', data)
 ####################################################################################################
